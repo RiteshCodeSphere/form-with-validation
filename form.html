@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation with Toast</title>
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+    <div class="formContainer">
+        <h2>Employee Details</h2>
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter Your Name">
+        <small class="error-message" id="nameError"></small>
+        <label for="designation">Designation</label>
+        <input type="text" id="designation" placeholder="Enter Your Designation">
+        <small class="error-message" id="designationError"></small>
+        <label for="branch">Branch</label>
+        <input type="text" id="branch" placeholder="Enter Your Branch">
+        <small class="error-message" id="branchError"></small>
+        <button type="submit" onclick="validateForm()">Submit</button>
+    </div>
+    <div id="toast" class="toast">Form submitted successfully!</div>
+    <script>
+        function validateForm() {
+            let isValid = true;
+            let name = document.getElementById("name").value.trim();
+            let designation = document.getElementById("designation").value.trim();
+            let branch = document.getElementById("branch").value.trim();
+            let nameError = document.getElementById("nameError");
+            let designationError = document.getElementById("designationError");
+            let branchError = document.getElementById("branchError");
+            document.getElementById("name").classList.remove("input-error");
+            document.getElementById("designation").classList.remove("input-error");
+            document.getElementById("branch").classList.remove("input-error");
+            nameError.textContent = "";
+            designationError.textContent = "";
+            branchError.textContent = "";
+            if (name === "") {
+                nameError.textContent = "Name is required";
+                document.getElementById("name").classList.add("input-error");
+                isValid = false;
+            }
+            if (designation === "") {
+                designationError.textContent = "Designation is required";
+                document.getElementById("designation").classList.add("input-error");
+                isValid = false;
+            }
+            if (branch === "") {
+                branchError.textContent = "Branch is required";
+                document.getElementById("branch").classList.add("input-error");
+                isValid = false;
+            }
+            if (isValid) {
+                showToast();
+            }
+        }
+        function showToast() {
+            let toast = document.getElementById("toast");
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
